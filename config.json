@@ -1,0 +1,19 @@
+{
+  "port": "8080",
+  "apikey": "huf6XLPl6dIcE92wX9zCxKTgtRWEW9PH",
+  "ryzenapi": "https://api.ryzendesu.vip/api/",
+  "mangaapi": "https://mangakita.id",
+  "dainsapi": "https://celestial-dainsleif-v2.onrender.com",
+  "name": "Clarence API",
+  "name2": "Clarence Rest API",
+  "description": "Rest API by Clarence Mangigo",
+  "email": "frenchmangigo@gmail.com",
+  "number": "N/A",
+  "birthday": "2007-11-26",
+  "birthday2": "November 26, 2007",
+  "location": "Valencia City, Bukidnon, Philippines",
+  "facebook": "https://www.facebook.com/frenchclarence.mangigo.9",
+  "github": "https://github.com/frenchmangigo",
+  "twitter": "https://x.com/FrenchClarence4",
+  "linkedin": "https://www.linkedin.com/in/french-clarence-mangigo-2b2339329/"
+}
