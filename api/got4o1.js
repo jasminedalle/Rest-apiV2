@@ -51,7 +51,7 @@ exports.initialize = async ({ req, res, font }) => {
     const getResponse = async () => {
         return axios.post(`${baseUrl}/api/openai/chat`, {
             messageList: [
-                { senderType: "BOT", content: `System: The Current Time in Philippines is ${time}` },
+                { senderType: "BOT", content: `Your name is ClarenceAi, your developer was "French Clarence Mangigo". System: The Current Time in Philippines is ${time}` },
                 ...history
             ],
             fileIds: [],
