@@ -83,20 +83,17 @@ exports.initialize = async ({ req, res, font }) => {
         }
     }
 
-    // Debug log for `font` parameter
-    console.log('Font parameter:', font);
-
-    // Safeguard for font.bold
-    const formattedMessage = font && typeof font.bold === 'function'
-        ? answer.replace(/\*\*(.*?)\*\*/g, (_, text) => font.bold(text)).replace(/TOOL_CALL:/g, '')
-        : answer.replace(/\*\*(.*?)\*\*/g, (_, text) => text).replace(/TOOL_CALL:/g, '');
-
-    const imageUrls = [...formattedMessage.matchAll(/!\[.*?\]\((https?:\/\/[^\s)]+)\)/g)]
+    const imageUrls = [...answer.matchAll(/!\[.*?\]\((https?:\/\/[^\s)]+)\)/g)]
         .map(([, url]) => url);
 
     const validImageUrls = await Promise.all(
         imageUrls.map(async (url) => (await isImageUrl(url)) ? url : null)
     ).then(results => results.filter(Boolean));
+
+    // Handle `font` being undefined by providing a fallback
+    const formattedMessage = (font && typeof font.bold === 'function')
+        ? answer.replace(/\*\*(.*?)\*\*/g, (_, text) => font.bold(text)).replace(/TOOL_CALL:/g, '')
+        : answer.replace(/\*\*(.*?)\*\*/g, (_, text) => text).replace(/TOOL_CALL:/g, '');
 
     res.json({
         message: formattedMessage,
