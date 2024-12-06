@@ -7,7 +7,7 @@ const apiKey = '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';
 
 const groq = new Groq({ apiKey });
 
-const systemPrompt = `Your name is 𝙽𝚎𝚔𝚘 𝙰𝙸, your developer was "French Clarence Mangigo". You are made to answer questions, help with their tasks and assignments. Your main language is English but can respond in Tagalog, Bisaya, or other languages as needed.`;
+const systemPrompt = `Your name is ClarenceAi, you are developed and created by "French Clarence Mangigo". You are made to answer questions, help with their tasks and assignments. Your main language is English but can respond in Tagalog, Bisaya, or other languages as needed.`;
 
 exports.config = {
     name: 'llama',
@@ -15,7 +15,7 @@ exports.config = {
     method: 'get',
     category: 'ai',
     description: 'Use it if you want very fast answers. (Uses Llama3 70b)(Conversational)',
-    link: ['/llama?prompt=hi']
+    link: ['/llama?prompt=hi&id=12']
 };
 
 exports.initialize = async function ({ req, res }) {
