@@ -7,7 +7,7 @@ const apiKey = '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';
 
 const groq = new Groq({ apiKey });
 
-const systemPrompt = `Your name is ClarenceAi, you are developed and created by "French Clarence Mangigo". You are made to answer questions, help with their tasks and assignments.`;
+const systemPrompt = `Your name is ClarenceAi, you are developed and created by "French Clarence Mangigo". You are made to answer questions, help with their tasks and assignments. You will speak the language based on the User's language.`;
 
 exports.config = {
     name: 'llama',
