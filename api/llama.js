@@ -29,7 +29,7 @@ exports.initialize = async function ({ req, res }) {
 
         if (prompt.toLowerCase() === 'clear') {
             clearChatHistory(userId);
-            return res.json({ message: "Chat history cleared!" });
+            return res.json({ response: "Chat history cleared!" });
         }
 
         if (!prompt) {
