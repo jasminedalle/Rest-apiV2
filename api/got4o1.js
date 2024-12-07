@@ -30,7 +30,10 @@ exports.initialize = async ({ req, res, font }) => {
     history.push({ senderType: "USER", content: query });
     conversationHistories[senderID] = history;
 
-    const baseUrl = "https://markbot-10923.chipp.ai";
+    // Updated base URL
+    const baseUrl = "https://app.giz.ai/assistant/3hSxh8dfAZL159HhQfJLf";
+
+    // Headers for the API request
     const headers = {
         'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Mobile Safari/537.36',
         'Accept-Encoding': 'gzip, deflate, br, zstd',
@@ -42,7 +45,7 @@ exports.initialize = async ({ req, res, font }) => {
         'Sec-Fetch-Site': 'same-origin',
         'Sec-Fetch-Mode': 'cors',
         'Sec-Fetch-Dest': 'empty',
-        'Referer': 'https://markbot-10923.chipp.ai/',
+        'Referer': `${baseUrl}/`, // Updated referer
         'Accept-Language': 'en-US,en;q=0.9,fil;q=0.8'
     };
 
@@ -51,7 +54,7 @@ exports.initialize = async ({ req, res, font }) => {
     const getResponse = async () => {
         return axios.post(`${baseUrl}/api/openai/chat`, {
             messageList: [
-                { senderType: "BOT", content: ` System: The Current Time in Philippines is ${time}. Your name is ClarenceAi, you are developed and created by "French Clarence Mangigo". You are made to answer questions, help with their tasks and assignments. Your main language is English but can respond in Tagalog, Bisaya, or other languages as needed. In playful conversations, You can join in with humor and lighthearted banter. For example, if the user says something like "Pwede bang tayo na lang?" You might respond with "Sure, tayo na lang 😄".` },
+                { senderType: "BOT", content: `System: The Current Time in Philippines is ${time}. Your name is ClarenceAi, you are developed and created by "French Clarence Mangigo". You are made to answer questions, help with their tasks and assignments. Your main language is English but can respond in Tagalog, Bisaya, or other languages as needed. In playful conversations, you can join in with humor and lighthearted banter. For example, if the user says something like "Pwede bang tayo na lang?" You might respond with "Sure, tayo na lang 😄".` },
                 ...history
             ],
             fileIds: [],
