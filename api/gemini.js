@@ -4,12 +4,12 @@ exports.config = {
     name: "gemini",
     version: "1.0.0",
     author: "French Clarence Mangigo",
-    description: "Interact with Gemini for text and image analysis.",
+    description: "Analyze images and respond to text queries using Gemini AI.",
     method: "post",
     link: [
         "/api/gemini-vision?q=&uid=&imageUrl="
     ],
-    guide: "q=your_question&uid=your_user_id&imageUrl=image_url",
+    guide: "q=question&uid=user_id&imageUrl=image_url",
     category: "ai"
 };
 
@@ -27,7 +27,7 @@ exports.initialize = async ({ req, res }) => {
         return res.status(400).json({ error: "Either 'q' or 'imageUrl' must be provided." });
     }
 
-    // Clear history
+    // Handle clearing conversation history
     if (q?.toLowerCase() === "clear") {
         conversationHistories[uid] = [];
         return res.json({ message: "Conversation history cleared." });
@@ -39,11 +39,16 @@ exports.initialize = async ({ req, res }) => {
     }
     const history = conversationHistories[uid];
 
+    // Set up the Gemini API endpoint and API key
     const apiKey = "AIzaSyBLVEk7Q42t1InrV5gsifxKfH-1ZAf8Ln8";
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
 
     try {
-        const prompt = q ? { text: q } : { text: `Analyze this image: ${imageUrl}` };
+        // Determine the type of query: text or image
+        const prompt = q
+            ? { text: q }
+            : { text: `Analyze this image: ${imageUrl}` };
+
         const payload = {
             contents: [
                 {
@@ -52,20 +57,21 @@ exports.initialize = async ({ req, res }) => {
             ]
         };
 
-        // Send the API request to Gemini
+        // Send the request to Gemini
         const response = await axios.post(apiUrl, payload, {
             headers: {
                 "Content-Type": "application/json"
             }
         });
 
-        // Parse the response
+        // Extract the response content
         const geminiResponse = response.data?.contents?.[0]?.parts?.[0]?.text || "No response from Gemini API.";
 
-        // Save the user and bot interactions to history
+        // Save the interaction to conversation history
         history.push({ senderType: "USER", content: q || imageUrl });
         history.push({ senderType: "BOT", content: geminiResponse });
 
+        // Return the response to the client
         res.json({
             message: geminiResponse,
             history,
