@@ -5,7 +5,7 @@ exports.config = {
     version: "1.0.0",
     author: "French Clarence Mangigo",
     description: "Analyze images and respond to text queries using Gemini AI.",
-    method: "post",
+    method: "get",
     link: [
         "/api/gemini-vision?q=&uid=&imageUrl="
     ],
