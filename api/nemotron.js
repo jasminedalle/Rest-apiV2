@@ -21,19 +21,23 @@ exports.initialize = async function ({ req, res }) {
         const prompt = req.query.q || '';
         const userId = req.query.id;
 
+        // Check for missing userId
         if (!userId) {
             return res.status(400).json({ error: "Missing required parameter: id" });
         }
 
+        // Clear chat history if requested
         if (prompt.toLowerCase() === 'clear') {
             clearChatHistory(userId);
             return res.json({ message: "Chat history cleared!" });
         }
 
+        // Check if prompt is empty
         if (!prompt) {
             return res.status(400).json({ error: "Please provide a prompt." });
         }
 
+        // Load chat history
         const chatHistory = loadChatHistory(userId);
         const chatMessages = [
             { role: 'system', content: systemPrompt },
@@ -41,11 +45,13 @@ exports.initialize = async function ({ req, res }) {
             { role: 'user', content: prompt }
         ];
 
+        // Create payload for the API request
         const payload = {
             model: 'nvidia/Nemotron-4-340B-Instruct',
             messages: chatMessages
         };
 
+        // Make POST request to the API
         const { data } = await axios.post('https://api.deepinfra.com/v1/openai/chat/completions', payload, {
             headers: {
                 'Authorization': `Bearer ${apiKey}`,
@@ -53,24 +59,38 @@ exports.initialize = async function ({ req, res }) {
             }
         });
 
+        // Check if response format is valid
+        if (!data || !data.choices || !data.choices[0] || !data.choices[0].message) {
+            throw new Error('Invalid response format from API');
+        }
+
+        // Extract the assistant's response
         const assistantResponse = data.choices[0].message.content;
 
+        // Append the interaction to the chat history
         appendToChatHistory(userId, [
             { role: 'user', content: prompt },
             { role: 'assistant', content: assistantResponse }
         ]);
 
+        // Send the response back to the client
         res.json({
             status: true, 
             result: assistantResponse,
             author: 'AceGerome'
         });
     } catch (error) {
-        console.error("Error in chat completion:", error);
-        res.status(500).json({ status: false, error: 'An error occurred while processing your request.', author: 'AceGerome' });
+        // Log detailed error information for debugging
+        console.error("Error in chat completion:", error.response ? error.response.data : error.message);
+        res.status(500).json({
+            status: false,
+            error: 'An error occurred while processing your request. Check the logs for details.',
+            author: 'AceGerome'
+        });
     }
 };
 
+// Function to load chat history from a file
 function loadChatHistory(uid) {
     const chatHistoryFile = path.join(chatHistoryDir, `memory_${uid}.json`);
 
@@ -87,6 +107,7 @@ function loadChatHistory(uid) {
     }
 }
 
+// Function to append new interactions to the chat history file
 function appendToChatHistory(uid, chatHistory) {
     const chatHistoryFile = path.join(chatHistoryDir, `memory_${uid}.json`);
 
@@ -102,6 +123,7 @@ function appendToChatHistory(uid, chatHistory) {
     }
 }
 
+// Function to clear the chat history file
 function clearChatHistory(uid) {
     const chatHistoryFile = path.join(chatHistoryDir, `memory_${uid}.json`);
 
