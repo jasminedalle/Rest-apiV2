@@ -30,7 +30,7 @@ exports.initialize = async ({ req, res, font }) => {
     history.push({ senderType: "USER", content: query });
     conversationHistories[senderID] = history;
 
-    const baseUrl = "https://darkai.foundation/chat";
+    const baseUrl = "https://markbot-10923.chipp.ai";
     const headers = {
         'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Mobile Safari/537.36',
         'Accept-Encoding': 'gzip, deflate, br, zstd',
