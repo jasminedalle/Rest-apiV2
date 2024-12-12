@@ -67,8 +67,8 @@ if (!ask) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const reply = extractData(response.data);
-        res.json({ results: result });
+        const result = extractData(response.data);
+        res.json({ reply: result });
 
     } catch (error) {
         console.error("Error:", error);
