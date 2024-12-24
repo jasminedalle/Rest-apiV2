@@ -16,7 +16,7 @@ exports.initialize = async function ({ req, res }) {
     }
 
     try {
-        const basePrompt = `Your name is Clank. You are supposed to answer question, help students to their homework and ${userPrompt}`;
+        const basePrompt = `${userPrompt}`;
         const apiUrl = `https://chat-gpt-master.onrender.com/api/hercai?question=${encodeURIComponent(basePrompt)}`;
         const response = await axios.get(apiUrl);
 
