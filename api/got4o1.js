@@ -50,7 +50,7 @@ exports.initialize = async ({ req, res, font }) => {
     const time = new Date().toLocaleString("en-US", { timeZone: "Asia/Manila", hour12: true });
 
     const getResponse = async () => {
-        return axios.post(`${baseUrl}/api/openai/chat`, {
+        return axios.post(`${baseUrl}/w/chat`, {
             messageList: [
                 { senderType: "BOT", content: `System: The Current Time in Philippines is ${time}` },
                 ...history
