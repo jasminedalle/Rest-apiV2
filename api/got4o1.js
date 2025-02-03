@@ -3,7 +3,7 @@ const axios = require("axios");
 exports.config = {
     name: "gpt4o1",
     version: "1.0.0",
-    author: "Kenneth Panio",
+    author: "CLARENCE",
     description: "Interact with GPT-4 o1 preview AI with websearch, file generation, and image recognition based on image URL in query.",
     method: 'get',
     link: [`/gpt4o1?prompt=generate_a_cat_image&uid=${Date.now()}`],
