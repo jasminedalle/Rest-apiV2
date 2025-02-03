@@ -8,7 +8,8 @@ exports.config = {
     method: 'get',
     link: [`/gpt4o1?prompt=generate_a_cat_image&uid=${Date.now()}`],
     guide: "ai How does quantum computing work?",
-    category: "ai"
+    category: "ai",
+    credits: "CLARENCE"  // Added a credits field as a placeholder
 };
 
 const conversationHistories = {};
@@ -30,7 +31,7 @@ exports.initialize = async ({ req, res, font }) => {
     history.push({ senderType: "USER", content: query });
     conversationHistories[senderID] = history;
 
-    const baseUrl = "https://app.chipp.ai";  // Updated base URL
+    const baseUrl = "https://aitutor-38965.chipp.ai";
     const headers = {
         'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Mobile Safari/537.36',
         'Accept-Encoding': 'gzip, deflate, br, zstd',
@@ -42,7 +43,7 @@ exports.initialize = async ({ req, res, font }) => {
         'Sec-Fetch-Site': 'same-origin',
         'Sec-Fetch-Mode': 'cors',
         'Sec-Fetch-Dest': 'empty',
-        'Referer': 'https://app.chipp.ai/',  // Updated Referer URL
+        'Referer': 'https://aitutor-38965.chipp.ai/',
         'Accept-Language': 'en-US,en;q=0.9,fil;q=0.8'
     };
 
