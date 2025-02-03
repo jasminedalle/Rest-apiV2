@@ -30,7 +30,7 @@ exports.initialize = async ({ req, res, font }) => {
     history.push({ senderType: "USER", content: query });
     conversationHistories[senderID] = history;
 
-    const baseUrl = "https://markbot-10923.chipp.ai";
+    const baseUrl = "https://app.chipp.ai";  // Updated base URL
     const headers = {
         'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Mobile Safari/537.36',
         'Accept-Encoding': 'gzip, deflate, br, zstd',
@@ -42,7 +42,7 @@ exports.initialize = async ({ req, res, font }) => {
         'Sec-Fetch-Site': 'same-origin',
         'Sec-Fetch-Mode': 'cors',
         'Sec-Fetch-Dest': 'empty',
-        'Referer': 'https://markbot-10923.chipp.ai/',
+        'Referer': 'https://app.chipp.ai/',  // Updated Referer URL
         'Accept-Language': 'en-US,en;q=0.9,fil;q=0.8'
     };
 
